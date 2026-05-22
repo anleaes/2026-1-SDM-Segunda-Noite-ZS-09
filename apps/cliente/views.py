@@ -5,5 +5,5 @@ from .serializer import ClienteSerializer
 
 
 class ClienteViewSet(viewsets.ModelViewSet):
-    queryset = Cliente.objects.all()
+    queryset = Cliente.objects.all().order_by('id')
     serializer_class = ClienteSerializer
