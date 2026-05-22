@@ -5,5 +5,5 @@ from .serializer import CarteiraMotoristaSerializer
 
 
 class CarteiraMotoristaViewSet(viewsets.ModelViewSet):
-    queryset = CarteiraMotorista.objects.all()
+    queryset = CarteiraMotorista.objects.all().order_by('id')
     serializer_class = CarteiraMotoristaSerializer
