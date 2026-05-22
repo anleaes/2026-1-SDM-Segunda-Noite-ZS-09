@@ -7,3 +7,4 @@ class CarteiraMotoristaSerializer(serializers.ModelSerializer):
     class Meta:
         model = CarteiraMotorista
         fields = ['id', 'numeroRegistro', 'categoria', 'dataValidade', 'cliente']
+        read_only_fields = ['id']
