@@ -29,8 +29,8 @@ class Cliente(Pessoa):
         if not self.ativo:
             return False
         try:
-            return self.carteira_motorista.is_valida()
-        except CarteiraMotorista.DoesNotExist:
+            return self.carteiramotorista.is_valida()
+        except Exception:
             return False
 
     def __str__(self):
