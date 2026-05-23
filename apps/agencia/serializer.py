@@ -7,3 +7,4 @@ class AgenciaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Agencia
         fields = ['id', 'nome', 'endereco', 'telefone', 'ativa']
+        read_only_fields = ['id']
