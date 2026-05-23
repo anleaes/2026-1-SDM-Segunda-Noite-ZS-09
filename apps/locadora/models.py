@@ -34,8 +34,19 @@ class CarteiraMotorista(models.Model):
         return f"CNH {self.numeroRegistro} ({self.categoria})"
 
 
+class Agencia(models.Model):
+    nome = models.CharField(max_length=120)
+    endereco = models.CharField(max_length=200)
+    telefone = models.CharField(max_length=20)
+    ativa = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.nome
+
+
 class Funcionario(Pessoa):
     matricula = models.CharField(max_length=20, unique=True)
     cargo = models.CharField(max_length=60)
     salario = models.DecimalField(max_digits=10, decimal_places=2)
     dataContratacao = models.DateField()
+    agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT, related_name='funcionarios', null=True, blank=True)
