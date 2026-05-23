@@ -12,3 +12,26 @@ class Pessoa(models.Model):
 
     def __str__(self):
         return f'{self.nome} ({self.cpf})'
+
+
+class Cliente(Pessoa):
+    ativo = models.BooleanField('Ativo', default=True)
+    telefone = models.CharField('Telefone', max_length=20, blank=True, default='')
+    data_cadastro = models.DateTimeField('Data de Cadastro', auto_now_add=True)
+    observacoes = models.TextField('Observações', blank=True, default='')
+
+    class Meta:
+        verbose_name = 'Cliente'
+        verbose_name_plural = 'Clientes'
+        ordering = ['nome']
+
+    def verificar_elegibilidade_locacao(self):
+        if not self.ativo:
+            return False
+        try:
+            return self.carteira_motorista.is_valida()
+        except CarteiraMotorista.DoesNotExist:
+            return False
+
+    def __str__(self):
+        return self.nome
