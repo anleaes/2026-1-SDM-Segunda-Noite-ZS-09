@@ -5,5 +5,5 @@ from .serializer import FuncionarioSerializer
 
 
 class FuncionarioViewSet(viewsets.ModelViewSet):
-    queryset = Funcionario.objects.all()
+    queryset = Funcionario.objects.all().order_by('matricula')
     serializer_class = FuncionarioSerializer
