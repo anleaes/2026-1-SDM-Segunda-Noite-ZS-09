@@ -4,7 +4,6 @@ from .views import PessoaViewSet
 
 router = DefaultRouter()
 
-urlpatterns = [
-    path('', include(router.urls)),
+urlpatterns = router.urls + [
     path('pessoas/', PessoaViewSet.as_view(), name='pessoa-info'),
 ]
