@@ -7,3 +7,4 @@ class FuncionarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Funcionario
         fields = ['id', 'nome', 'cpf', 'dataNascimento', 'matricula', 'cargo', 'salario', 'dataContratacao']
+        read_only_fields = ['id']
