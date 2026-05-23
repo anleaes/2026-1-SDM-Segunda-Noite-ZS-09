@@ -5,5 +5,5 @@ from .serializer import AgenciaSerializer
 
 
 class AgenciaViewSet(viewsets.ModelViewSet):
-    queryset = Agencia.objects.all()
+    queryset = Agencia.objects.all().order_by('nome')
     serializer_class = AgenciaSerializer
