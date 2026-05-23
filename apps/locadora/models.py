@@ -11,3 +11,10 @@ class Pessoa(models.Model):
 
     def __str__(self):
         return f"{self.nome} ({self.cpf})"
+
+
+class Cliente(Pessoa):
+    ativo = models.BooleanField(default=True)
+
+    def verificarElegibilidadeLocacao(self):
+        return self.ativo
