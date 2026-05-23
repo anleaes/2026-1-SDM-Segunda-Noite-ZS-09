@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'apps.pessoa',
     'apps.cliente',
     'apps.carteira_motorista',
+    'apps.funcionario',
 ]
 
 MIDDLEWARE = [
