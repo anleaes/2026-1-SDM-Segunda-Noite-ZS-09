@@ -11,4 +11,4 @@ class Pessoa(models.Model):
         abstract = True
 
     def __str__(self):
-        return self.nome
+        return f'{self.nome} ({self.cpf})'
