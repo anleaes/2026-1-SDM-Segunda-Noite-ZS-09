@@ -5,5 +5,5 @@ from .serializer import VeiculoSerializer
 
 
 class VeiculoViewSet(viewsets.ModelViewSet):
-    queryset = Veiculo.objects.all()
+    queryset = Veiculo.objects.all().order_by('placa')
     serializer_class = VeiculoSerializer
