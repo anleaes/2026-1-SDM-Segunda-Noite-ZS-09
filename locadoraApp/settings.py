@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'apps.veiculo',
     'apps.adicional',
     'apps.seguro',
+    'apps.reserva',
 ]
+
 
 
 MIDDLEWARE = [
