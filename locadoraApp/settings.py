@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'apps.categoria_veiculo',
     'apps.veiculo',
     'apps.adicional',
+    'apps.seguro',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
