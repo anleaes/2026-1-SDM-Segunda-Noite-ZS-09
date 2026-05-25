@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from .models import Multa
+from .serializer import MultaSerializer
+
+
+class MultaViewSet(viewsets.ModelViewSet):
+    queryset = Multa.objects.all()
+    serializer_class = MultaSerializer
