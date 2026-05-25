@@ -5,5 +5,6 @@ from .serializer import SeguroSerializer
 
 
 class SeguroViewSet(viewsets.ModelViewSet):
-    queryset = Seguro.objects.all()
+    queryset = Seguro.objects.all().order_by('id')
+
     serializer_class = SeguroSerializer
