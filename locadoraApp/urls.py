@@ -10,4 +10,6 @@ urlpatterns = [
     path('api/', include('apps.agencia.urls')),
     path('api/', include('apps.categoria_veiculo.urls')),
     path('api/', include('apps.veiculo.urls')),
+    path('api/', include('apps.adicional.urls')),
 ]
+
