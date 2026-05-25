@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'apps.pagamento',
     'apps.item_adicional',
     'apps.manutencao',
+    'apps.multa',
 ]
+
 
 
 
