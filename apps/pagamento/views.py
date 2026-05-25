@@ -5,5 +5,6 @@ from .serializer import PagamentoSerializer
 
 
 class PagamentoViewSet(viewsets.ModelViewSet):
-    queryset = Pagamento.objects.all()
+    queryset = Pagamento.objects.all().order_by('id')
+
     serializer_class = PagamentoSerializer
