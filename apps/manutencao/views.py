@@ -5,5 +5,6 @@ from .serializer import ManutencaoSerializer
 
 
 class ManutencaoViewSet(viewsets.ModelViewSet):
-    queryset = Manutencao.objects.all()
+    queryset = Manutencao.objects.all().order_by('dataManutencao')
+
     serializer_class = ManutencaoSerializer
