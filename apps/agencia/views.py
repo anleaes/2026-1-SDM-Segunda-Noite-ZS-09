@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from rest_framework import viewsets
 
-# Create your views here.
+from .models import Agencia
+from .serializer import AgenciaSerializer
+
+
+class AgenciaViewSet(viewsets.ModelViewSet):
+    queryset = Agencia.objects.all().order_by('nome')
+    serializer_class = AgenciaSerializer
