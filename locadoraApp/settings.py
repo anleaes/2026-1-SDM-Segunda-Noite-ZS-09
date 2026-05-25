@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'apps.funcionario',
     'apps.agencia',
     'apps.categoria_veiculo',
+    'apps.veiculo',
 ]
 
 MIDDLEWARE = [
