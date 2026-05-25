@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'apps.adicional',
     'apps.seguro',
     'apps.reserva',
+    'apps.pagamento',
 ]
+
 
 
 
