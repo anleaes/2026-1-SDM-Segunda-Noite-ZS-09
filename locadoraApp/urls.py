@@ -12,6 +12,8 @@ urlpatterns = [
     path('api/', include('apps.veiculo.urls')),
     path('api/', include('apps.adicional.urls')),
     path('api/', include('apps.seguro.urls')),
+    path('api/', include('apps.reserva.urls')),
 ]
+
 
 
