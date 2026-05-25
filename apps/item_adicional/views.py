@@ -5,5 +5,6 @@ from .serializer import ItemAdicionalSerializer
 
 
 class ItemAdicionalViewSet(viewsets.ModelViewSet):
-    queryset = ItemAdicional.objects.all()
+    queryset = ItemAdicional.objects.all().order_by('id')
+
     serializer_class = ItemAdicionalSerializer
