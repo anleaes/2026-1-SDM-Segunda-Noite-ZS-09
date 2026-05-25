@@ -1,7 +1,13 @@
 from rest_framework import viewsets
 
-from .models import Agencia, CarteiraMotorista, Cliente, Funcionario
-from .serializers import AgenciaSerializer, CarteiraMotoristaSerializer, ClienteSerializer, FuncionarioSerializer
+from .models import Agencia, CarteiraMotorista, CategoriaVeiculo, Cliente, Funcionario
+from .serializers import (
+    AgenciaSerializer,
+    CarteiraMotoristaSerializer,
+    CategoriaVeiculoSerializer,
+    ClienteSerializer,
+    FuncionarioSerializer,
+)
 
 
 class ClienteViewSet(viewsets.ModelViewSet):
@@ -22,3 +28,8 @@ class FuncionarioViewSet(viewsets.ModelViewSet):
 class AgenciaViewSet(viewsets.ModelViewSet):
     queryset = Agencia.objects.all()
     serializer_class = AgenciaSerializer
+
+
+class CategoriaVeiculoViewSet(viewsets.ModelViewSet):
+    queryset = CategoriaVeiculo.objects.all()
+    serializer_class = CategoriaVeiculoSerializer

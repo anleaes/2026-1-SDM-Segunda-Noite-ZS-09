@@ -50,3 +50,13 @@ class Funcionario(Pessoa):
     salario = models.DecimalField(max_digits=10, decimal_places=2)
     dataContratacao = models.DateField()
     agencia = models.ForeignKey(Agencia, on_delete=models.PROTECT, related_name='funcionarios', null=True, blank=True)
+
+
+class CategoriaVeiculo(models.Model):
+    nome = models.CharField(max_length=60)
+    descricao = models.TextField(blank=True)
+    capacidadePassageiros = models.PositiveIntegerField()
+    valorAdicional = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+
+    def __str__(self):
+        return self.nome
