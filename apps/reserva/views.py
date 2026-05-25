@@ -5,5 +5,6 @@ from .serializer import ReservaSerializer
 
 
 class ReservaViewSet(viewsets.ModelViewSet):
-    queryset = Reserva.objects.all()
+    queryset = Reserva.objects.all().order_by('dataReserva')
+
     serializer_class = ReservaSerializer
