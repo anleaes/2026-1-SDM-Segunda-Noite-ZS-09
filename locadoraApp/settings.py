@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps.pessoa',
     'apps.cliente',
+    'apps.carteira_motorista',
 ]
 
 MIDDLEWARE = [
