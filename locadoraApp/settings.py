@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'apps.carteira_motorista',
     'apps.funcionario',
     'apps.agencia',
+    'apps.categoria_veiculo',
 ]
 
 MIDDLEWARE = [
