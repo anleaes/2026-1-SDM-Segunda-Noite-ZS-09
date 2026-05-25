@@ -12,10 +12,13 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 from pathlib import Path
 from decouple import config, Csv
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
+
+os.environ['TNS_ADMIN'] = config('TNS_ADMIN')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
@@ -70,8 +73,15 @@ WSGI_APPLICATION = 'locadoraApp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'OPTIONS': {
+            'config_dir': config('TNS_ADMIN'),
+            'wallet_location': config('TNS_ADMIN'),
+            'wallet_password': config('DB_PASSWORD'),
+        },
     }
 }
 
