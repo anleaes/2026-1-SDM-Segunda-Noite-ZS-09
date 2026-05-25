@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Agencia, CarteiraMotorista, CategoriaVeiculo, Cliente, Funcionario
+from .models import Agencia, CarteiraMotorista, CategoriaVeiculo, Cliente, Funcionario, Veiculo
 
 
 class ClienteSerializer(serializers.ModelSerializer):
@@ -31,3 +31,9 @@ class CategoriaVeiculoSerializer(serializers.ModelSerializer):
     class Meta:
         model = CategoriaVeiculo
         fields = ['id', 'nome', 'descricao', 'capacidadePassageiros', 'valorAdicional']
+
+
+class VeiculoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Veiculo
+        fields = ['id', 'placa', 'modelo', 'ano', 'valorDiaria', 'ipvaPago', 'disponivel', 'agencia', 'categoria']

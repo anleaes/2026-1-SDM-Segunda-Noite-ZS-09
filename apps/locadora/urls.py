@@ -6,6 +6,7 @@ from .views import (
     CategoriaVeiculoViewSet,
     ClienteViewSet,
     FuncionarioViewSet,
+    VeiculoViewSet,
 )
 
 router = DefaultRouter()
@@ -14,5 +15,6 @@ router.register(r'carteiras-motorista', CarteiraMotoristaViewSet)
 router.register(r'funcionarios', FuncionarioViewSet)
 router.register(r'agencias', AgenciaViewSet)
 router.register(r'categorias-veiculo', CategoriaVeiculoViewSet)
+router.register(r'veiculos', VeiculoViewSet)
 
 urlpatterns = router.urls
