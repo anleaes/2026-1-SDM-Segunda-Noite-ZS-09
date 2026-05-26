@@ -5,5 +5,6 @@ from .serializer import MultaSerializer
 
 
 class MultaViewSet(viewsets.ModelViewSet):
-    queryset = Multa.objects.all()
+    queryset = Multa.objects.all().order_by('dataInfracao')
+
     serializer_class = MultaSerializer
