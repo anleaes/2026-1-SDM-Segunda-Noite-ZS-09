@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gerenciar Veículos{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Gerenciar Veículos</h1>
+
+    <form method="POST" action="{% url 'veiculo_create' %}" class="form-group">
+        <input type="text" name="placa" placeholder="Placa" required style="width: 120px;">
+        <input type="text" name="modelo" placeholder="Modelo" required style="width: 200px;">
+        <input type="number" name="ano" placeholder="Ano" min="1900" max="2099" required style="width: 90px;">
+        <input type="number" name="valorDiaria" placeholder="Diária (R$)" step="0.01" required style="width: 120px;">
+
+        <select name="agencia_id" required>
+            <option value="" disabled selected>Selecionar Agência</option>
+            {% for a in agencias %}
+            <option value="{{ a.id }}">{{ a.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="categoria_id" required>
+            <option value="" disabled selected>Selecionar Categoria</option>
+            {% for c in categorias %}
+            <option value="{{ c.id }}">{{ c.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <label><input type="checkbox" name="ipvaPago"> IPVA pago</label>
+        <label><input type="checkbox" name="disponivel" checked> Disponível</label>
+
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Placa</th>
+                <th>Modelo</th>
+                <th>Ano</th>
+                <th>Diária</th>
+                <th>Agência</th>
+                <th>Categoria</th>
+                <th>IPVA</th>
+                <th>Disponível</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in veiculos %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.placa }}</td>
+                <td>{{ item.modelo }}</td>
+                <td>{{ item.ano }}</td>
+                <td>R$ {{ item.valorDiaria }}</td>
+                <td>{{ item.agencia.nome }}</td>
+                <td>{{ item.categoria.nome }}</td>
+                <td>
+                    {% if item.ipvaPago %}
+                    <span style="color: green;">Pago</span>
+                    {% else %}
+                    <span style="color: red;">Pendente</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if item.disponivel %}
+                    <span style="color: green; font-weight: bold;">Sim</span>
+                    {% else %}
+                    <span style="color: red;">Não</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <form method="POST" action="{% url 'veiculo_delete' item.id %}" style="display: inline;"
+                        onsubmit="return confirm('Tem certeza que deseja excluir este veículo?')">
+                        <button type="submit" class="delete-btn">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="10" style="text-align: center; color: #64748b;">Nenhum veículo cadastrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
