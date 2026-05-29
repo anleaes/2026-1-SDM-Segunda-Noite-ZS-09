@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gerenciar Seguros{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Gerenciar Seguros</h1>
+
+    <form method="POST" action="{% url 'seguro_create' %}" class="form-group">
+        <input type="text" name="descricao" placeholder="Descrição do Seguro" required>
+        <input type="number" name="franquia" placeholder="Valor da Franquia (R$)" step="0.01" required>
+        <input type="number" name="valorDiaria" placeholder="Valor da Diária (R$)" step="0.01" required>
+
+        <button type="submit">Adicionar Seguro</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descrição</th>
+                <th>Franquia</th>
+                <th>Valor da Diária</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in seguros %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.descricao }}</td>
+                <td>R$ {{ item.franquia }}</td>
+                <td>R$ {{ item.valorDiaria }}</td>
+                <td>
+                    <form method="POST" action="{% url 'seguro_delete' item.id %}" style="display: inline;"
+                        onsubmit="return confirm('Tem certeza que deseja excluir este seguro?')">
+                        <button type="submit" class="delete-btn">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center; color: #64748b;">Nenhum seguro cadastrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
