@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gerenciar Reservas{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Gerenciar Reservas</h1>
+
+    <form method="POST" action="{% url 'reserva_create' %}" class="form-group">
+        <input type="date" name="dataReserva" required>
+        <input type="date" name="dataInicio" required>
+        <input type="date" name="dataFim" required>
+        <input type="number" name="valorTotal" placeholder="Valor Total (R$)" step="0.01">
+
+        <select name="status" required>
+            <option value="ATIVA" selected>ATIVA</option>
+            <option value="CONFIRMADA">CONFIRMADA</option>
+            <option value="CANCELADA">CANCELADA</option>
+        </select>
+
+        <select name="cliente_id" required>
+            <option value="" disabled selected>Selecionar Cliente</option>
+            {% for c in clientes %}
+            <option value="{{ c.id }}">{{ c.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="veiculo_id" required>
+            <option value="" disabled selected>Selecionar Veículo</option>
+            {% for v in veiculos %}
+            <option value="{{ v.id }}">{{ v.placa }} - {{ v.modelo }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="agencia_id" required>
+            <option value="" disabled selected>Selecionar Agência</option>
+            {% for a in agencias %}
+            <option value="{{ a.id }}">{{ a.nome }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data Reserva</th>
+                <th>Início</th>
+                <th>Fim</th>
+                <th>Cliente</th>
+                <th>Veículo</th>
+                <th>Agência</th>
+                <th>Status</th>
+                <th>Valor Total</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in reservas %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.dataReserva|date:"d/m/Y" }}</td>
+                <td>{{ item.dataInicio|date:"d/m/Y" }}</td>
+                <td>{{ item.dataFim|date:"d/m/Y" }}</td>
+                <td>{{ item.cliente.nome }}</td>
+                <td>{{ item.veiculo.placa }} - {{ item.veiculo.modelo }}</td>
+                <td>{{ item.agencia.nome }}</td>
+                <td>{{ item.status }}</td>
+                <td>R$ {{ item.valorTotal }}</td>
+                <td>
+                    <form method="POST" action="{% url 'reserva_delete' item.id %}" style="display: inline;"
+                        onsubmit="return confirm('Tem certeza que deseja excluir esta reserva?')">
+                        <button type="submit" class="delete-btn">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="10" style="text-align: center; color: #64748b;">Nenhuma reserva cadastrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
