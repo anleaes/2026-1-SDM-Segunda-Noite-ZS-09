@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import RedirectView
 from rest_framework.routers import DefaultRouter
 
 from apps.adicional.views import AdicionalViewSet
@@ -32,6 +33,7 @@ router.register(r'manutencoes', ManutencaoViewSet)
 router.register(r'multas', MultaViewSet)
 
 urlpatterns = [
+    path('', RedirectView.as_view(url='/clientes/lista/', permanent=False)),
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/', include('apps.pessoa.urls')),
