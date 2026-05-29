@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.shortcuts import render
 
 
 class PessoaInfoView(APIView):
@@ -11,3 +12,14 @@ class PessoaInfoView(APIView):
             'atributos': ['nome', 'cpf', 'dataNascimento'],
         }
         return Response(data, status=status.HTTP_200_OK)
+
+
+def pessoa_info(request):
+    template_name = 'pessoa/info_pessoa.html'
+    context = {
+        'classe': 'Pessoa',
+        'tipo': 'Abstrata',
+        'atributos': ['nome', 'cpf', 'dataNascimento'],
+        'descendentes': ['Cliente', 'Funcionario']
+    }
+    return render(request, template_name, context)
