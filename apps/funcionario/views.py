@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from django.shortcuts import render, redirect, get_object_or_404
 
+from apps.usuarios.decorators import login_obrigatorio
+
 from apps.agencia.models import Agencia
 from .models import Funcionario
 from .serializer import FuncionarioSerializer
@@ -11,6 +13,7 @@ class FuncionarioViewSet(viewsets.ModelViewSet):
     serializer_class = FuncionarioSerializer
 
 
+@login_obrigatorio
 def funcionario_list(request):
     pagina = 'funcionario/list_funcionario.html'
     todos_funcionarios = Funcionario.objects.all().order_by('id')
@@ -22,6 +25,7 @@ def funcionario_list(request):
     return render(request, pagina, dados_para_tela)
 
 
+@login_obrigatorio
 def funcionario_create(request):
     if request.method == 'POST':
         nome_digitado = request.POST['nome']
@@ -50,6 +54,7 @@ def funcionario_create(request):
     return redirect('funcionario_list')
 
 
+@login_obrigatorio
 def funcionario_delete(request, id):
     funcionario_para_deletar = get_object_or_404(Funcionario, id=id)
     funcionario_para_deletar.delete()

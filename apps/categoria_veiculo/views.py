@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from django.shortcuts import render, redirect, get_object_or_404
 
+from apps.usuarios.decorators import login_obrigatorio
+
 from .models import CategoriaVeiculo
 from .serializer import CategoriaVeiculoSerializer
 
@@ -10,6 +12,7 @@ class CategoriaVeiculoViewSet(viewsets.ModelViewSet):
     serializer_class = CategoriaVeiculoSerializer
 
 
+@login_obrigatorio
 def categoria_list(request):
     pagina = 'categoria_veiculo/list_categoria.html'
     todas_categorias = CategoriaVeiculo.objects.all().order_by('id')
@@ -19,6 +22,7 @@ def categoria_list(request):
     return render(request, pagina, dados_para_tela)
 
 
+@login_obrigatorio
 def categoria_create(request):
     if request.method == 'POST':
         nome_digitado = request.POST['nome']
@@ -35,6 +39,7 @@ def categoria_create(request):
     return redirect('categoria_list')
 
 
+@login_obrigatorio
 def categoria_delete(request, id):
     categoria_para_deletar = get_object_or_404(CategoriaVeiculo, id=id)
     categoria_para_deletar.delete()

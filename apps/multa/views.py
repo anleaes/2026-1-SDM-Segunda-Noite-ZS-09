@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from django.shortcuts import render, redirect, get_object_or_404
 
+from apps.usuarios.decorators import login_obrigatorio
+
 from apps.reserva.models import Reserva
 from .models import Multa
 from .serializer import MultaSerializer
@@ -11,6 +13,7 @@ class MultaViewSet(viewsets.ModelViewSet):
     serializer_class = MultaSerializer
 
 
+@login_obrigatorio
 def multa_list(request):
     pagina = 'multa/list_multa.html'
     todas_multas = Multa.objects.all().order_by('id')
@@ -22,6 +25,7 @@ def multa_list(request):
     return render(request, pagina, dados_para_tela)
 
 
+@login_obrigatorio
 def multa_create(request):
     if request.method == 'POST':
         valor_digitado = request.POST['valor']
@@ -42,6 +46,7 @@ def multa_create(request):
     return redirect('multa_list')
 
 
+@login_obrigatorio
 def multa_delete(request, id):
     multa_para_deletar = get_object_or_404(Multa, id=id)
     multa_para_deletar.delete()

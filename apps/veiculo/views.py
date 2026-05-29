@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from django.shortcuts import render, redirect, get_object_or_404
 
+from apps.usuarios.decorators import login_obrigatorio
+
 from apps.agencia.models import Agencia
 from apps.categoria_veiculo.models import CategoriaVeiculo
 from .models import Veiculo
@@ -12,6 +14,7 @@ class VeiculoViewSet(viewsets.ModelViewSet):
     serializer_class = VeiculoSerializer
 
 
+@login_obrigatorio
 def veiculo_list(request):
     pagina = 'veiculo/list_veiculo.html'
     todos_veiculos = Veiculo.objects.all().order_by('id')
@@ -25,6 +28,7 @@ def veiculo_list(request):
     return render(request, pagina, dados_para_tela)
 
 
+@login_obrigatorio
 def veiculo_create(request):
     if request.method == 'POST':
         placa_digitada = request.POST['placa']
@@ -52,6 +56,7 @@ def veiculo_create(request):
     return redirect('veiculo_list')
 
 
+@login_obrigatorio
 def veiculo_delete(request, id):
     veiculo_para_deletar = get_object_or_404(Veiculo, id=id)
     veiculo_para_deletar.delete()

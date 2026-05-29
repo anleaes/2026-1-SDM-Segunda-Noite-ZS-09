@@ -4,189 +4,96 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Locadora{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <style>
         body {
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
+            font-family: Arial, sans-serif;
             margin: 0;
+            padding: 0;
         }
 
         header {
-            background: #fff;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 0.6rem 1.5rem;
+            background: #f0f0f0;
+            padding: 10px 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            flex-wrap: wrap;
+            gap: 15px;
+            border-bottom: 1px solid #ccc;
         }
 
-        .logo {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #2563eb;
+        header a {
             text-decoration: none;
-            white-space: nowrap;
+            color: #333;
+        }
+
+        header .logo {
+            font-weight: bold;
+            margin-right: 20px;
         }
 
         nav {
             display: flex;
-            gap: 0.4rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        nav a {
-            position: relative;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 6px;
-            color: #475569;
-            transition: background 0.15s, color 0.15s;
+            gap: 8px;
         }
 
         nav a img {
-            width: 20px;
-            height: 20px;
-            display: block;
+            width: 24px;
+            height: 24px;
         }
 
-        nav a:hover {
-            background: #eff6ff;
-            color: #2563eb;
-        }
-
-        nav a::after {
-            content: attr(data-label);
-            position: absolute;
-            top: 110%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e293b;
-            color: #fff;
-            font-size: 0.75rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            white-space: nowrap;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.15s;
-            z-index: 10;
-        }
-
-        nav a:hover::after {
-            opacity: 1;
+        .usuario-area {
+            margin-left: auto;
         }
 
         main {
-            padding: 1.5rem;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1100px;
-        }
-
-        h1 {
-            font-size: 1.3rem;
-            margin: 0 0 1rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .form-group input,
-        .form-group select {
-            padding: 0.4rem 0.6rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            font: inherit;
-            background: #fff;
-        }
-
-        .form-group button {
-            padding: 0.4rem 0.9rem;
-            border: 1px solid #2563eb;
-            background: #2563eb;
-            color: #fff;
-            border-radius: 4px;
-            cursor: pointer;
+            padding: 20px;
         }
 
         table {
-            width: 100%;
             border-collapse: collapse;
-            background: #fff;
-            border: 1px solid #e2e8f0;
+            margin-top: 10px;
         }
 
-        th,
-        td {
-            padding: 0.5rem 0.7rem;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
+        table th,
+        table td {
+            border: 1px solid #ccc;
+            padding: 6px 10px;
         }
 
-        th {
-            background: #f1f5f9;
-            font-weight: 600;
-        }
-
-        tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .delete-btn {
-            padding: 0.3rem 0.7rem;
-            background: #fff;
-            color: #b91c1c;
-            border: 1px solid #fecaca;
-            border-radius: 4px;
-            cursor: pointer;
+        form p {
+            margin: 8px 0;
         }
     </style>
 </head>
 
 <body>
+    {% if request.session.usuario_id %}
     <header>
         <a href="/" class="logo">LocadoraApp</a>
         <nav>
-            <a href="/adicionais/lista/" data-label="Adicionais"><img src="{% static 'img/icons/adicional.svg' %}" alt=""></a>
-            <a href="/agencias/lista/" data-label="Agências"><img src="{% static 'img/icons/agencia.svg' %}" alt=""></a>
-            <a href="/carteiras/lista/" data-label="CNHs"><img src="{% static 'img/icons/cnh.svg' %}" alt=""></a>
-            <a href="/categorias-veiculo/lista/" data-label="Categorias"><img src="{% static 'img/icons/categoria.svg' %}" alt=""></a>
-            <a href="/clientes/lista/" data-label="Clientes"><img src="{% static 'img/icons/cliente.svg' %}" alt=""></a>
-            <a href="/funcionarios/lista/" data-label="Funcionários"><img src="{% static 'img/icons/funcionario.svg' %}" alt=""></a>
-            <a href="/itens-adicionais/lista/" data-label="Itens Adicionais"><img src="{% static 'img/icons/item-adicional.svg' %}" alt=""></a>
-            <a href="/manutencoes/lista/" data-label="Manutenções"><img src="{% static 'img/icons/manutencao.svg' %}" alt=""></a>
-            <a href="/multas/lista/" data-label="Multas"><img src="{% static 'img/icons/multa.svg' %}" alt=""></a>
-            <a href="/pagamentos/lista/" data-label="Pagamentos"><img src="{% static 'img/icons/pagamento.svg' %}" alt=""></a>
-            <a href="/reservas/lista/" data-label="Reservas"><img src="{% static 'img/icons/reserva.svg' %}" alt=""></a>
-            <a href="/seguros/lista/" data-label="Seguros"><img src="{% static 'img/icons/seguro.svg' %}" alt=""></a>
-            <a href="/veiculos/lista/" data-label="Veículos"><img src="{% static 'img/icons/veiculo.svg' %}" alt=""></a>
+            <a href="/adicionais/lista/" title="Adicionais"><img src="{% static 'img/icons/adicional.svg' %}" alt="Adicionais"></a>
+            <a href="/agencias/lista/" title="Agências"><img src="{% static 'img/icons/agencia.svg' %}" alt="Agências"></a>
+            <a href="/carteiras/lista/" title="CNHs"><img src="{% static 'img/icons/cnh.svg' %}" alt="CNHs"></a>
+            <a href="/categorias-veiculo/lista/" title="Categorias"><img src="{% static 'img/icons/categoria.svg' %}" alt="Categorias"></a>
+            <a href="/clientes/lista/" title="Clientes"><img src="{% static 'img/icons/cliente.svg' %}" alt="Clientes"></a>
+            <a href="/funcionarios/lista/" title="Funcionários"><img src="{% static 'img/icons/funcionario.svg' %}" alt="Funcionários"></a>
+            <a href="/itens-adicionais/lista/" title="Itens Adicionais"><img src="{% static 'img/icons/item-adicional.svg' %}" alt="Itens Adicionais"></a>
+            <a href="/manutencoes/lista/" title="Manutenções"><img src="{% static 'img/icons/manutencao.svg' %}" alt="Manutenções"></a>
+            <a href="/multas/lista/" title="Multas"><img src="{% static 'img/icons/multa.svg' %}" alt="Multas"></a>
+            <a href="/pagamentos/lista/" title="Pagamentos"><img src="{% static 'img/icons/pagamento.svg' %}" alt="Pagamentos"></a>
+            <a href="/reservas/lista/" title="Reservas"><img src="{% static 'img/icons/reserva.svg' %}" alt="Reservas"></a>
+            <a href="/seguros/lista/" title="Seguros"><img src="{% static 'img/icons/seguro.svg' %}" alt="Seguros"></a>
+            <a href="/veiculos/lista/" title="Veículos"><img src="{% static 'img/icons/veiculo.svg' %}" alt="Veículos"></a>
         </nav>
+        <div class="usuario-area">
+            Ola, {{ request.session.usuario_nome }} | <a href="{% url 'logout' %}">Sair</a>
+        </div>
     </header>
+    {% endif %}
 
     <main>
         {% block body %}{% endblock %}
     </main>
-
-    <script src="{% static 'js/locadora.js' %}"></script>
 </body>
 
 </html>

@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from django.shortcuts import render, redirect, get_object_or_404
 
+from apps.usuarios.decorators import login_obrigatorio
+
 from apps.veiculo.models import Veiculo
 from .models import Manutencao
 from .serializer import ManutencaoSerializer
@@ -12,6 +14,7 @@ class ManutencaoViewSet(viewsets.ModelViewSet):
     serializer_class = ManutencaoSerializer
 
 
+@login_obrigatorio
 def manutencao_list(request):
     pagina = 'manutencao/list_manutencao.html'
     todas_manutencoes = Manutencao.objects.all().order_by('id')
@@ -23,6 +26,7 @@ def manutencao_list(request):
     return render(request, pagina, dados_para_tela)
 
 
+@login_obrigatorio
 def manutencao_create(request):
     if request.method == 'POST':
         data_digitada = request.POST['dataManutencao']
@@ -43,6 +47,7 @@ def manutencao_create(request):
     return redirect('manutencao_list')
 
 
+@login_obrigatorio
 def manutencao_delete(request, id):
     manutencao_para_deletar = get_object_or_404(Manutencao, id=id)
     manutencao_para_deletar.delete()

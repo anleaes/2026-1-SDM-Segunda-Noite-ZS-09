@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from django.shortcuts import render, redirect, get_object_or_404
 
+from apps.usuarios.decorators import login_obrigatorio
+
 from apps.reserva.models import Reserva
 from apps.adicional.models import Adicional
 from .models import ItemAdicional
@@ -12,6 +14,7 @@ class ItemAdicionalViewSet(viewsets.ModelViewSet):
     serializer_class = ItemAdicionalSerializer
 
 
+@login_obrigatorio
 def item_list(request):
     pagina = 'item_adicional/list_item.html'
     todos_itens = ItemAdicional.objects.all().order_by('id')
@@ -25,6 +28,7 @@ def item_list(request):
     return render(request, pagina, dados_para_tela)
 
 
+@login_obrigatorio
 def item_create(request):
     if request.method == 'POST':
         id_da_reserva = request.POST['reserva_id']
@@ -47,6 +51,7 @@ def item_create(request):
     return redirect('item_list')
 
 
+@login_obrigatorio
 def item_delete(request, id):
     item_para_deletar = get_object_or_404(ItemAdicional, id=id)
     item_para_deletar.delete()
