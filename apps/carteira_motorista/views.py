@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from django.shortcuts import render, redirect, get_object_or_404
 
+from apps.usuarios.decorators import login_obrigatorio
+
 from apps.cliente.models import Cliente
 from .models import CarteiraMotorista
 from .serializer import CarteiraMotoristaSerializer
@@ -11,6 +13,7 @@ class CarteiraMotoristaViewSet(viewsets.ModelViewSet):
     serializer_class = CarteiraMotoristaSerializer
 
 
+@login_obrigatorio
 def carteira_list(request):
     pagina = 'carteira_motorista/list_carteira.html'
     todas_cnhs = CarteiraMotorista.objects.all().order_by('id')
@@ -22,6 +25,7 @@ def carteira_list(request):
     return render(request, pagina, dados_para_tela)
 
 
+@login_obrigatorio
 def carteira_create(request):
     if request.method == 'POST':
         numero_digitado = request.POST['numeroRegistro']
@@ -41,6 +45,7 @@ def carteira_create(request):
     return redirect('carteira_list')
 
 
+@login_obrigatorio
 def carteira_delete(request, id):
     cnh_para_deletar = get_object_or_404(CarteiraMotorista, id=id)
     cnh_para_deletar.delete()

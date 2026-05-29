@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from django.shortcuts import render, redirect, get_object_or_404
 
+from apps.usuarios.decorators import login_obrigatorio
+
 from .models import Adicional
 from .serializer import AdicionalSerializer
 
@@ -10,6 +12,7 @@ class AdicionalViewSet(viewsets.ModelViewSet):
     serializer_class = AdicionalSerializer
 
 
+@login_obrigatorio
 def adicional_list(request):
     pagina = 'adicional/list_adicional.html'
     todos_adicionais = Adicional.objects.all().order_by('id')
@@ -19,6 +22,7 @@ def adicional_list(request):
     return render(request, pagina, dados_para_tela)
 
 
+@login_obrigatorio
 def adicional_create(request):
     if request.method == 'POST':
         descricao_digitada = request.POST['descricao']
@@ -31,6 +35,7 @@ def adicional_create(request):
     return redirect('adicional_list')
 
 
+@login_obrigatorio
 def adicional_delete(request, id):
     adicional_para_deletar = get_object_or_404(Adicional, id=id)
     adicional_para_deletar.delete()

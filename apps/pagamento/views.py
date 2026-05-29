@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from django.shortcuts import render, redirect, get_object_or_404
 
+from apps.usuarios.decorators import login_obrigatorio
+
 from apps.reserva.models import Reserva
 from .models import Pagamento
 from .serializer import PagamentoSerializer
@@ -12,6 +14,7 @@ class PagamentoViewSet(viewsets.ModelViewSet):
     serializer_class = PagamentoSerializer
 
 
+@login_obrigatorio
 def pagamento_list(request):
     pagina = 'pagamento/list_pagamento.html'
     todos_pagamentos = Pagamento.objects.all().order_by('id')
@@ -23,6 +26,7 @@ def pagamento_list(request):
     return render(request, pagina, dados_para_tela)
 
 
+@login_obrigatorio
 def pagamento_create(request):
     if request.method == 'POST':
         data_digitada = request.POST.get('dataPagamento') or None
@@ -43,6 +47,7 @@ def pagamento_create(request):
     return redirect('pagamento_list')
 
 
+@login_obrigatorio
 def pagamento_delete(request, id):
     pagamento_para_deletar = get_object_or_404(Pagamento, id=id)
     pagamento_para_deletar.delete()

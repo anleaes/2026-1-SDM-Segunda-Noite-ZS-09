@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from django.shortcuts import render, redirect, get_object_or_404
 
+from apps.usuarios.decorators import login_obrigatorio
+
 from apps.agencia.models import Agencia
 from apps.cliente.models import Cliente
 from apps.veiculo.models import Veiculo
@@ -14,6 +16,7 @@ class ReservaViewSet(viewsets.ModelViewSet):
     serializer_class = ReservaSerializer
 
 
+@login_obrigatorio
 def reserva_list(request):
     pagina = 'reserva/list_reserva.html'
     todas_reservas = Reserva.objects.all().order_by('id')
@@ -29,6 +32,7 @@ def reserva_list(request):
     return render(request, pagina, dados_para_tela)
 
 
+@login_obrigatorio
 def reserva_create(request):
     if request.method == 'POST':
         data_reserva_digitada = request.POST['dataReserva']
@@ -57,6 +61,7 @@ def reserva_create(request):
     return redirect('reserva_list')
 
 
+@login_obrigatorio
 def reserva_delete(request, id):
     reserva_para_deletar = get_object_or_404(Reserva, id=id)
     reserva_para_deletar.delete()

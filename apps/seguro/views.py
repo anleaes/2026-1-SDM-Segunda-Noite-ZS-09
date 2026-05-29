@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from django.shortcuts import render, redirect, get_object_or_404
 
+from apps.usuarios.decorators import login_obrigatorio
+
 from .models import Seguro
 from .serializer import SeguroSerializer
 
@@ -10,6 +12,7 @@ class SeguroViewSet(viewsets.ModelViewSet):
     serializer_class = SeguroSerializer
 
 
+@login_obrigatorio
 def seguro_list(request):
     pagina = 'seguro/list_seguro.html'
     todos_seguros = Seguro.objects.all().order_by('id')
@@ -19,6 +22,7 @@ def seguro_list(request):
     return render(request, pagina, dados_para_tela)
 
 
+@login_obrigatorio
 def seguro_create(request):
     if request.method == 'POST':
         franquia_digitada = request.POST['franquia']
@@ -34,6 +38,7 @@ def seguro_create(request):
     return redirect('seguro_list')
 
 
+@login_obrigatorio
 def seguro_delete(request, id):
     seguro_para_deletar = get_object_or_404(Seguro, id=id)
     seguro_para_deletar.delete()

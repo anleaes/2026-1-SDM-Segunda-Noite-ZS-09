@@ -33,8 +33,9 @@ router.register(r'manutencoes', ManutencaoViewSet)
 router.register(r'multas', MultaViewSet)
 
 urlpatterns = [
-    path('', RedirectView.as_view(url='/clientes/lista/', permanent=False)),
+    path('', RedirectView.as_view(url='/login/', permanent=False)),
     path('admin/', admin.site.urls),
+    path('', include('apps.usuarios.urls')),
     path('api/', include(router.urls)),
     path('api/', include('apps.pessoa.urls')),
     path('adicionais/', include('apps.adicional.urls')),
