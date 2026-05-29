@@ -1,8 +1,8 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+from . import views
 
-from .views import VeiculoViewSet
-
-router = DefaultRouter()
-router.register(r'veiculos', VeiculoViewSet)
-
-urlpatterns = router.urls
+urlpatterns = [
+    path('lista/', views.veiculo_list, name='veiculo_list'),
+    path('criar/', views.veiculo_create, name='veiculo_create'),
+    path('deletar/<int:id>/', views.veiculo_delete, name='veiculo_delete'),
+]
