@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gerenciar Clientes{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Gerenciar Clientes</h1>
+
+    <form method="POST" action="{% url 'cliente_create' %}" class="form-group">
+        <input type="text" name="nome" placeholder="Nome Completo" required style="width: 250px;">
+        <input type="text" name="cpf" placeholder="CPF (ex: 123.456.789-00)" required style="width: 150px;">
+        <input type="date" name="dataNascimento" required style="width: 150px;">
+        <label style="display: flex; align-items: center; gap: 5px;">
+            <input type="checkbox" name="ativo" checked> Ativo
+        </label>
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CPF</th>
+                <th>Data de Nascimento</th>
+                <th>Ativo</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in clientes %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.nome }}</td>
+                <td>{{ item.cpf }}</td>
+                <td>{{ item.dataNascimento|date:"d/m/Y" }}</td>
+                <td>
+                    {% if item.ativo %}
+                    <span style="color: green; font-weight: bold;">Ativo</span>
+                    {% else %}
+                    <span style="color: red;">Inativo</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <form method="POST" action="{% url 'cliente_delete' item.id %}" style="display: inline;"
+                        onsubmit="return confirm('Tem certeza que deseja excluir este cliente?')">
+                        <button type="submit" class="delete-btn">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" style="text-align: center; color: #64748b;">Nenhum cliente cadastrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
