@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gerenciar Itens Adicionais{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Gerenciar Itens Adicionais nas Reservas</h1>
+
+    <form method="POST" action="{% url 'item_create' %}" class="form-group">
+        <select name="reserva_id" required>
+            <option value="" disabled selected>Selecionar Reserva</option>
+            {% for r in reservas %}
+            <option value="{{ r.id }}">Reserva nº {{ r.id }} (Cliente: {{ r.cliente.nome }})</option>
+            {% endfor %}
+        </select>
+
+        <select name="adicional_id" required>
+            <option value="" disabled selected>Selecionar Adicional</option>
+            {% for a in adicionais %}
+            <option value="{{ a.id }}">{{ a.descricao }} (Diária: R$ {{ a.valorDiaria }})</option>
+            {% endfor %}
+        </select>
+
+        <input type="number" name="quantidade" placeholder="Qtd" min="1" required>
+        <button type="submit">Adicionar Item</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nº Reserva</th>
+                <th>Adicional</th>
+                <th>Quantidade</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in itens %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.reserva.id }}</td>
+                <td>{{ item.adicional.descricao }}</td>
+                <td>{{ item.quantidade }}</td>
+                <td>
+                    <form method="POST" action="{% url 'item_delete' item.id %}" style="display: inline;"
+                        onsubmit="return confirm('Tem certeza que deseja excluir este item?')">
+                        <button type="submit" class="delete-btn">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center; color: #64748b;">Nenhum item adicional cadastrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
