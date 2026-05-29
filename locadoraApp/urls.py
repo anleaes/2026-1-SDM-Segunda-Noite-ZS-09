@@ -35,4 +35,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api/', include('apps.pessoa.urls')),
+    path('adicionais/', include('apps.adicional.urls')),
+    path('clientes/', include('apps.cliente.urls')),
+    path('carteiras/', include('apps.carteira_motorista.urls')),
+    path('itens-adicionais/', include('apps.item_adicional.urls')),
+    path('multas/', include('apps.multa.urls')),
+    path('seguros/', include('apps.seguro.urls')),
+    path('pessoas/', include('apps.pessoa.urls')),
 ]
