@@ -1,8 +1,8 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+from . import views
 
-from .views import ManutencaoViewSet
-
-router = DefaultRouter()
-router.register(r'manutencoes', ManutencaoViewSet)
-
-urlpatterns = router.urls
+urlpatterns = [
+    path('lista/', views.manutencao_list, name='manutencao_list'),
+    path('criar/', views.manutencao_create, name='manutencao_create'),
+    path('deletar/<int:id>/', views.manutencao_delete, name='manutencao_delete'),
+]
