@@ -1,8 +1,8 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+from . import views
 
-from .views import SeguroViewSet
-
-router = DefaultRouter()
-router.register(r'seguros', SeguroViewSet)
-
-urlpatterns = router.urls
+urlpatterns = [
+    path('lista/', views.seguro_list, name='seguro_list'),
+    path('criar/', views.seguro_create, name='seguro_create'),
+    path('deletar/<int:id>/', views.seguro_delete, name='seguro_delete'),
+]
