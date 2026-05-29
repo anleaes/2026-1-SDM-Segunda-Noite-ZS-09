@@ -7,5 +7,4 @@ venv/
 .vscode/
 .idea/
 *.log
-staticfiles/
 media/

@@ -114,28 +114,6 @@
         }
     }
 
-    function filtroBusca() {
-        var input = document.querySelector('.header-search input');
-        if (!input) {
-            return;
-        }
-        var botao = document.querySelector('.header-search button');
-        if (botao) {
-            botao.removeAttribute('onclick');
-            botao.addEventListener('click', function () {
-                input.focus();
-            });
-        }
-        input.setAttribute('placeholder', 'Filtrar tabela...');
-        input.addEventListener('input', function () {
-            var termo = input.value.toLowerCase().trim();
-            document.querySelectorAll('table tbody tr').forEach(function (linha) {
-                var texto = linha.textContent.toLowerCase();
-                linha.style.display = (!termo || texto.indexOf(termo) !== -1) ? '' : 'none';
-            });
-        });
-    }
-
     document.addEventListener('DOMContentLoaded', function () {
         aplicarMascara('input[name="cpf"]', mascaraCpf);
         aplicarMascara('input[name="telefone"]', mascaraTelefone);
@@ -143,6 +121,5 @@
         validarSubmit();
         hoverLinhas();
         contarRegistros();
-        filtroBusca();
     });
 })();
