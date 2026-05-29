@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gerenciar Manutenções{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Gerenciar Manutenções</h1>
+
+    <form method="POST" action="{% url 'manutencao_create' %}" class="form-group">
+        <input type="date" name="dataManutencao" required>
+        <input type="text" name="descricao" placeholder="Descrição do serviço" required style="width: 260px;">
+        <input type="number" name="custo" placeholder="Custo (R$)" step="0.01" required>
+
+        <select name="veiculo_id" required>
+            <option value="" disabled selected>Selecionar Veículo</option>
+            {% for v in veiculos %}
+            <option value="{{ v.id }}">{{ v.placa }} - {{ v.modelo }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="status">
+            <option value="EM_ANDAMENTO" selected>EM ANDAMENTO</option>
+            <option value="CONCLUIDA">CONCLUÍDA</option>
+            <option value="CANCELADA">CANCELADA</option>
+        </select>
+
+        <button type="submit">Registrar</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Data</th>
+                <th>Veículo</th>
+                <th>Descrição</th>
+                <th>Custo</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in manutencoes %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.dataManutencao|date:"d/m/Y" }}</td>
+                <td>{{ item.veiculo.placa }} - {{ item.veiculo.modelo }}</td>
+                <td>{{ item.descricao }}</td>
+                <td>R$ {{ item.custo }}</td>
+                <td>
+                    {% if item.status == 'CONCLUIDA' %}
+                    <span style="color: green; font-weight: bold;">{{ item.status }}</span>
+                    {% elif item.status == 'CANCELADA' %}
+                    <span style="color: red;">{{ item.status }}</span>
+                    {% else %}
+                    <span style="color: #b45309;">{{ item.status }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <form method="POST" action="{% url 'manutencao_delete' item.id %}" style="display: inline;"
+                        onsubmit="return confirm('Tem certeza que deseja excluir esta manutenção?')">
+                        <button type="submit" class="delete-btn">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7" style="text-align: center; color: #64748b;">Nenhuma manutenção cadastrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
