@@ -1,8 +1,8 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+from . import views
 
-from .views import AgenciaViewSet
-
-router = DefaultRouter()
-router.register(r'agencias', AgenciaViewSet)
-
-urlpatterns = router.urls
+urlpatterns = [
+    path('lista/', views.agencia_list, name='agencia_list'),
+    path('criar/', views.agencia_create, name='agencia_create'),
+    path('deletar/<int:id>/', views.agencia_delete, name='agencia_delete'),
+]
