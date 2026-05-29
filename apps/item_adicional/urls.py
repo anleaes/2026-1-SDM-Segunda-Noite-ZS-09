@@ -1,8 +1,8 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+from . import views
 
-from .views import ItemAdicionalViewSet
-
-router = DefaultRouter()
-router.register(r'itens-adicionais', ItemAdicionalViewSet)
-
-urlpatterns = router.urls
+urlpatterns = [
+    path('lista/', views.item_list, name='item_list'),
+    path('criar/', views.item_create, name='item_create'),
+    path('deletar/<int:id>/', views.item_delete, name='item_delete'),
+]
