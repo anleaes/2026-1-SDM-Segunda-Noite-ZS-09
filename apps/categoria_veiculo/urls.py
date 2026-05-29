@@ -1,8 +1,8 @@
-from rest_framework.routers import DefaultRouter
+from django.urls import path
+from . import views
 
-from .views import CategoriaVeiculoViewSet
-
-router = DefaultRouter()
-router.register(r'categorias-veiculo', CategoriaVeiculoViewSet)
-
-urlpatterns = router.urls
+urlpatterns = [
+    path('lista/', views.categoria_list, name='categoria_list'),
+    path('criar/', views.categoria_create, name='categoria_create'),
+    path('deletar/<int:id>/', views.categoria_delete, name='categoria_delete'),
+]
