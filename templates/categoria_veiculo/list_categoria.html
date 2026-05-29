@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gerenciar Categorias de Veículo{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Gerenciar Categorias de Veículo</h1>
+
+    <form method="POST" action="{% url 'categoria_create' %}" class="form-group">
+        <input type="text" name="nome" placeholder="Nome (ex: Hatch Compacto)" required style="width: 200px;">
+        <input type="text" name="descricao" placeholder="Descrição" required style="width: 280px;">
+        <input type="number" name="capacidadePassageiros" placeholder="Passageiros" min="1" required>
+        <input type="number" name="valorAdicional" placeholder="Valor Adicional (R$)" step="0.01" required>
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Capacidade</th>
+                <th>Valor Adicional</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in categorias %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.nome }}</td>
+                <td>{{ item.descricao }}</td>
+                <td>{{ item.capacidadePassageiros }} pessoas</td>
+                <td>R$ {{ item.valorAdicional }}</td>
+                <td>
+                    <form method="POST" action="{% url 'categoria_delete' item.id %}" style="display: inline;"
+                        onsubmit="return confirm('Tem certeza que deseja excluir esta categoria?')">
+                        <button type="submit" class="delete-btn">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" style="text-align: center; color: #64748b;">Nenhuma categoria cadastrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
