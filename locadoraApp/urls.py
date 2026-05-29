@@ -42,4 +42,11 @@ urlpatterns = [
     path('multas/', include('apps.multa.urls')),
     path('seguros/', include('apps.seguro.urls')),
     path('pessoas/', include('apps.pessoa.urls')),
+    path('agencias/', include('apps.agencia.urls')),
+    path('categorias-veiculo/', include('apps.categoria_veiculo.urls')),
+    path('veiculos/', include('apps.veiculo.urls')),
+    path('funcionarios/', include('apps.funcionario.urls')),
+    path('reservas/', include('apps.reserva.urls')),
+    path('pagamentos/', include('apps.pagamento.urls')),
+    path('manutencoes/', include('apps.manutencao.urls')),
 ]
