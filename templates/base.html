@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Locadora{% endblock %}</title>
+    <!-- CSS Geral -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            top: 0;
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        .header-search {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-search input {
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .main-content {
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="/" class="logo">LocadoraApp</a>
+        <nav>
+            <a href="/adicionais/lista/">Adicionais</a>
+            <a href="/clientes/lista/">Clientes</a>
+            <a href="/carteiras/lista/">CNHs</a>
+            <a href="/itens-adicionais/lista/">Itens Adicionais</a>
+            <a href="/multas/lista/">Multas</a>
+            <a href="/seguros/lista/">Seguros</a>
+        </nav>
+        <div class="header-search">
+            <input type="text" placeholder="Buscar...">
+            <button style="padding: 0.5rem 1rem; border-radius: 6px;"
+                onclick="alert('Busca não implementada nesta versão básica.')">Buscar</button>
+        </div>
+    </header>
+
+    <main class="main-content">
+        {% block body %}{% endblock %}
+    </main>
+</body>
+
+</html>
