@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gerenciar Carteiras de Motorista{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Gerenciar Carteiras de Motorista (CNH)</h1>
+
+    <form method="POST" action="{% url 'carteira_create' %}" class="form-group">
+        <input type="text" name="numeroRegistro" placeholder="Número de Registro" required>
+        <input type="text" name="categoria" placeholder="Categoria (ex: B)" required>
+        <input type="date" name="dataValidade" required>
+
+        <select name="cliente_id" required>
+            <option value="" disabled selected>Selecionar Cliente</option>
+            {% for c in clientes %}
+            <option value="{{ c.id }}">{{ c.nome }} (CPF: {{ c.cpf }})</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Adicionar CNH</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Nº Registro</th>
+                <th>Categoria</th>
+                <th>Validade</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in carteiras %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.cliente.nome }}</td>
+                <td>{{ item.numeroRegistro }}</td>
+                <td>{{ item.categoria }}</td>
+                <td>{{ item.dataValidade|date:"d/m/Y" }}</td>
+                <td>
+                    <form method="POST" action="{% url 'carteira_delete' item.id %}" style="display: inline;"
+                        onsubmit="return confirm('Tem certeza que deseja excluir esta CNH?')">
+                        <button type="submit" class="delete-btn">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" style="text-align: center; color: #64748b;">Nenhuma CNH cadastrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
