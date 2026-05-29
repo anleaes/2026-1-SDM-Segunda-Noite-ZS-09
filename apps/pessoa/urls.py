@@ -1,7 +1,6 @@
 from django.urls import path
-
-from .views import PessoaInfoView
+from . import views
 
 urlpatterns = [
-    path('pessoa/', PessoaInfoView.as_view(), name='pessoa-info'),
+    path('pessoa/', views.PessoaInfoView.as_view(), name='pessoa-info'),
 ]
