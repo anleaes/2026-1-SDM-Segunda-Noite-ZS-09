@@ -45,6 +45,8 @@
                 <th>Categoria</th>
                 <th>IPVA</th>
                 <th>Disponível</th>
+                <th>Manutenções</th>
+                <th>Reservas</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -73,6 +75,20 @@
                     {% endif %}
                 </td>
                 <td>
+                    {% for manutencao in item.manutencoes.all %}
+                    #{{ manutencao.id }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                    -
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for reserva in item.reservas.all %}
+                    #{{ reserva.id }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                    -
+                    {% endfor %}
+                </td>
+                <td>
                     <form method="POST" action="{% url 'veiculo_delete' item.id %}" style="display: inline;"
                         onsubmit="return confirm('Tem certeza que deseja excluir este veículo?')">
                         <button type="submit" class="delete-btn">Excluir</button>
@@ -81,7 +97,7 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="10" style="text-align: center; color: #64748b;">Nenhum veículo cadastrado.</td>
+                <td colspan="12" style="text-align: center; color: #64748b;">Nenhum veículo cadastrado.</td>
             </tr>
             {% endfor %}
         </tbody>

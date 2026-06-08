@@ -23,6 +23,7 @@
                 <th>Descrição</th>
                 <th>Capacidade</th>
                 <th>Valor Adicional</th>
+                <th>Veículos</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -35,6 +36,13 @@
                 <td>{{ item.capacidadePassageiros }} pessoas</td>
                 <td>R$ {{ item.valorAdicional }}</td>
                 <td>
+                    {% for veiculo in item.veiculos.all %}
+                    {{ veiculo.modelo }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                    -
+                    {% endfor %}
+                </td>
+                <td>
                     <form method="POST" action="{% url 'categoria_delete' item.id %}" style="display: inline;"
                         onsubmit="return confirm('Tem certeza que deseja excluir esta categoria?')">
                         <button type="submit" class="delete-btn">Excluir</button>
@@ -43,7 +51,7 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="6" style="text-align: center; color: #64748b;">Nenhuma categoria cadastrada.</td>
+                <td colspan="7" style="text-align: center; color: #64748b;">Nenhuma categoria cadastrada.</td>
             </tr>
             {% endfor %}
         </tbody>
