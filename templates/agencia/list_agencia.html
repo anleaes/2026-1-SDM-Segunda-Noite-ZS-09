@@ -25,6 +25,9 @@
                 <th>Endereço</th>
                 <th>Telefone</th>
                 <th>Situação</th>
+                <th>Funcionários</th>
+                <th>Veículos</th>
+                <th>Reservas</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -43,6 +46,27 @@
                     {% endif %}
                 </td>
                 <td>
+                    {% for funcionario in item.funcionarios.all %}
+                    {{ funcionario.nome }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                    -
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for veiculo in item.veiculos.all %}
+                    {{ veiculo.modelo }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                    -
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for reserva in item.reservas.all %}
+                    #{{ reserva.id }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                    -
+                    {% endfor %}
+                </td>
+                <td>
                     <form method="POST" action="{% url 'agencia_delete' item.id %}" style="display: inline;"
                         onsubmit="return confirm('Tem certeza que deseja excluir esta agência?')">
                         <button type="submit" class="delete-btn">Excluir</button>
@@ -51,7 +75,7 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="6" style="text-align: center; color: #64748b;">Nenhuma agência cadastrada.</td>
+                <td colspan="9" style="text-align: center; color: #64748b;">Nenhuma agência cadastrada.</td>
             </tr>
             {% endfor %}
         </tbody>
