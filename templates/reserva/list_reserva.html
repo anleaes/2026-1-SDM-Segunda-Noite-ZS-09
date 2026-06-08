@@ -55,6 +55,9 @@
                 <th>Agência</th>
                 <th>Status</th>
                 <th>Valor Total</th>
+                <th>Pagamento</th>
+                <th>Itens Adicionais</th>
+                <th>Multas</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -71,6 +74,27 @@
                 <td>{{ item.status }}</td>
                 <td>R$ {{ item.valorTotal }}</td>
                 <td>
+                    {% if item.pagamento %}
+                    #{{ item.pagamento.id }}
+                    {% else %}
+                    -
+                    {% endif %}
+                </td>
+                <td>
+                    {% for item_adicional in item.itens_adicionais.all %}
+                    #{{ item_adicional.id }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                    -
+                    {% endfor %}
+                </td>
+                <td>
+                    {% for multa in item.multas.all %}
+                    #{{ multa.id }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                    -
+                    {% endfor %}
+                </td>
+                <td>
                     <form method="POST" action="{% url 'reserva_delete' item.id %}" style="display: inline;"
                         onsubmit="return confirm('Tem certeza que deseja excluir esta reserva?')">
                         <button type="submit" class="delete-btn">Excluir</button>
@@ -79,7 +103,7 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="10" style="text-align: center; color: #64748b;">Nenhuma reserva cadastrada.</td>
+                <td colspan="13" style="text-align: center; color: #64748b;">Nenhuma reserva cadastrada.</td>
             </tr>
             {% endfor %}
         </tbody>
